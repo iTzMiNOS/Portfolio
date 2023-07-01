@@ -1,3 +1,4 @@
+<div [routerLink]="['/post',postData.id]">
 <div class="card shadow-effect" *ngIf = "postData.data.isFeatured; else normal">
   <img src="{{postData.data.postImgPath}}" alt="post-image" class="card-img-top">
   <div class="card-body">
@@ -9,7 +10,7 @@
     <small class="bg-light text-warning text-center ml-3">LAST UPDATED - {{postData.data.createdAt.toMillis() | date}}</small>
   </div>
 </div>
-<ng-template #normal class="card shadow-effect">
+<ng-template #normal class="card shadow-effect" >
   <img src="{{postData.data.postImgPath}}" alt="post-image" class="card-img-top">
   <div class="card-body">
     <small class="bg-light text-danger text-center">{{postData.data.category.category}}</small>
@@ -19,3 +20,4 @@
     <small class="bg-light text-warning text-center ml-3">LAST UPDATED - {{postData.data.createdAt.toMillis() | date}}</small>
   </div>
 </ng-template>
+</div>

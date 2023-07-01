@@ -2,36 +2,32 @@
   <div class="row">
     <div class="col-md-9">
       <div class="card shadow-effect">
-        <img src="https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg" alt="post-image" class="card-img-top img-fluid">
-        <div class="card-body">
-          <small class="bg-light text-danger text-center">Design</small>
+        <img src="{{singlePostData.postImgPath}}" alt="post-image" class="card-img-top img-fluid">
+        <div class="card-body" *ngIf="singlePostData.isFeatured; else normal">
+          <small class="bg-light text-danger text-center">{{singlePostData.category.category}}</small>
           <small class="bg-light text-success text-center ml-2">Featured</small>
-          <small class="bg-light text-info text-center ml-2">Views - 2.4k</small>
-          <small class="bg-light text-warning text-center ml-2">LAST UPDATED - SEP 26 2023</small>
-          <h1 class="mt-3 mb-3">How to Create a Portfolio using Angular?</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem voluptate enim error, modi cum excepturi neque aut ab non obcaecati minus aspernatur deserunt, officiis tenetur molestiae corrupti quod commodi accusantium.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde fugiat magnam accusantium odio vitae atque ducimus maxime iste quos eum, architecto sed iusto explicabo fugit reprehenderit, iure nihil laboriosam tempora.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil itaque voluptatem, neque aut tenetur in ea quia, dignissimos ut facilis accusamus nemo ipsa! Quasi magnam voluptatibus hic aspernatur, alias est.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae explicabo veniam quos eos architecto. Cum quod ex at facilis in, corporis velit possimus dolorem magni fugit nisi harum expedita explicabo.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, suscipit? Quidem facere ut dolor voluptates quas eveniet autem dolorem odit corrupti natus est, maxime at! Maiores voluptatem laboriosam debitis optio.
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut quibusdam repudiandae eaque sint corrupti veritatis esse quae labore tempora tempore modi, possimus est similique, consectetur recusandae expedita voluptatem autem reprehenderit?
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis accusamus natus ab dolorum nihil porro assumenda iste similique et mollitia beatae aspernatur cumque provident, fuga eaque perferendis magni delectus ipsum?
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui esse commodi sint consequuntur ad ducimus provident quas ea veritatis fuga natus deserunt ipsa nulla, facilis repudiandae eos adipisci vero. Dolor?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti consectetur amet magni minima veniam pariatur eius dicta hic sit ipsa? Consequatur labore pariatur maiores dolore qui quaerat reiciendis ad suscipit?
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio eligendi esse, repellat hic minima libero ratione ad obcaecati. Cumque totam distinctio a possimus quos, molestiae earum vero ab veniam voluptate.
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi consequuntur expedita nam quis distinctio optio! At modi ipsam eaque doloremque reprehenderit tenetur ab maxime autem, aliquam quis ex earum ea!
-
-          </p>
+          <small class="bg-light text-info text-center ml-2">Views - {{singlePostData.views}}</small>
+          <small class="bg-light text-warning text-center ml-2">LAST UPDATED - {{singlePostData.createdAt.toMillis() | date}}</small>
+          <h1 class="mt-3 mb-3">{{singlePostData.title}}</h1>
+          <p [innerHTML]="singlePostData.content"></p>
         </div>
+        <ng-template #normal>
+          <div class="card-body">
+            <small class="bg-light text-danger text-center">{{singlePostData.category.category}}</small>
+            <small class="bg-light text-info text-center ml-2">Views - {{singlePostData.views}}</small>
+            <small class="bg-light text-warning text-center ml-2">LAST UPDATED - {{singlePostData.createdAt.toMillis() | date}}</small>
+            <h1 class="mt-3 mb-3">{{singlePostData.title}}</h1>
+            <p [innerHTML]="singlePostData.content"></p>
+          </div>
+        </ng-template>
       </div>
       <app-comments-form></app-comments-form>
       <app-comments-list></app-comments-list>
     </div>
     <div class="col-md-3">
-      <app-post-card></app-post-card>
-      <app-post-card></app-post-card>
-      <app-post-card></app-post-card>
+      <div *ngFor = "let sim of similiarPostArray">
+        <app-post-card [postData] = 'sim'></app-post-card>
+      </div>
     </div>
   </div>
 </div>
