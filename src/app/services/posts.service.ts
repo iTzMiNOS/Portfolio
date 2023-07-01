@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs/operators'
+import * as firebase from 'firebase/compat/app'
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class PostsService {
    )
  }
  loadLatest(){
-  return this.afs.collection('posts', ref => ref.orderBy('createdAt').limit(6)).snapshotChanges().pipe(
+  return this.afs.collection('posts', ref => ref.orderBy('createdAt').limit(9)).snapshotChanges().pipe(
    map(actions =>{
      return actions.map(a =>{
        const data= a.payload.doc.data();
@@ -54,5 +55,13 @@ export class PostsService {
         })
       })
     )
+  }
+  countViews(postId){
+    const viewsCount = {
+      views: firebase.default.firestore.FieldValue.increment(1)
+    };
+    this.afs.doc(`posts/${postId}`).update(viewsCount).then(() =>{
+
+    })
   }
 }

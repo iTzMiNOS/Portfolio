@@ -3,7 +3,7 @@
     <div class="col-md-9">
       <div class="card shadow-effect">
         <img src="{{singlePostData.postImgPath}}" alt="post-image" class="card-img-top img-fluid">
-        <div class="card-body" *ngIf="singlePostData.isFeatured; else normal">
+        <div class="card-body">
           <small class="bg-light text-danger text-center">{{singlePostData.category.category}}</small>
           <small class="bg-light text-success text-center ml-2">Featured</small>
           <small class="bg-light text-info text-center ml-2">Views - {{singlePostData.views}}</small>
@@ -11,22 +11,13 @@
           <h1 class="mt-3 mb-3">{{singlePostData.title}}</h1>
           <p [innerHTML]="singlePostData.content"></p>
         </div>
-        <ng-template #normal>
-          <div class="card-body">
-            <small class="bg-light text-danger text-center">{{singlePostData.category.category}}</small>
-            <small class="bg-light text-info text-center ml-2">Views - {{singlePostData.views}}</small>
-            <small class="bg-light text-warning text-center ml-2">LAST UPDATED - {{singlePostData.createdAt.toMillis() | date}}</small>
-            <h1 class="mt-3 mb-3">{{singlePostData.title}}</h1>
-            <p [innerHTML]="singlePostData.content"></p>
-          </div>
-        </ng-template>
       </div>
       <app-comments-form></app-comments-form>
       <app-comments-list></app-comments-list>
     </div>
     <div class="col-md-3">
       <div *ngFor = "let sim of similiarPostArray">
-        <app-post-card [postData] = 'sim'></app-post-card>
+        <app-post-card [postData] = "sim"></app-post-card>
       </div>
     </div>
   </div>
